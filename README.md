@@ -23,56 +23,56 @@ This method of storing data centralizes the management of a user's files by stor
 
 
 Okay, so we are going to log into our DC as an administrator, and we will open the server manager application and select ***Tools*** in the top right-hand corner, and then select ***Active Directory Users and Computers*** from the drop-down menu.
-![Screenshot1](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/34ef2feb-a39c-445c-9eba-700cccfb655c)
+![Screenshot1](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/00bec27e-df56-47d0-9d65-3d54731fb6a0)
 
 
 In the ***Active Directory Users and Computers*** window, right-click any blank space there is in the details pane to the right and select ***New*** and then select ***Group***
-![Screenshot0](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/f72f086c-a053-4187-b3c4-3f215aa6679b)
+![Screenshot0](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/e3baa9c0-982a-4062-bf3c-0ee6e3dae239)
 
 
 In the ***New Object-Group*** dialogue box, type "Folder Redirect" into the ***Group name*** field
 
 Click ***OK***
-![Screenshot01](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/58244e12-7942-4fac-aec6-041bee14ca5b)-->
+![Screenshot01](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/cefc873a-79ef-48ef-99bf-5c8c9d007e54)
 
 
 In the ***Active Directory Users and Computers*** window, right-click any blank space there is in the details pane to the right and select ***New*** and then select ***User***
-![Screenshot2](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/8b6f7e89-87a2-4e0a-a7d8-1c5172cac459)
+![Screenshot2](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/10e5a82b-6fc5-47cd-89d7-24246d971e1c)
 
 
 In the ***New Object-User*** dialogue box, type "testuser" into the ***First name*** and ***User logon name*** fields
 
 Click ***Next***
-![Screenshot3](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/27827024-dfe7-4078-a002-d07479d0f721)
+![Screenshot3](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/52c2b11c-25e0-469a-b9fb-03a19d7ebeeb)
 
 
 Type "Password1" into the ***Password*** and ***Confirm Password fields (This isn't the strongest password I know, but this is just for demonstration purposes). Then disable ***User must change password at next logon*** and enable ***Password never expires*** 
 
 Click ***Next***
-![Screenshot4](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/6c082d30-cae2-4e0f-a86b-251c14c29172)
+![Screenshot4](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/aaeea923-2931-482b-9441-e1999889655b)
 
 
 Click ***Finish***
-![Screenshot5](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/e1cefbfe-e931-48f9-ab74-fc5e9cdc61d2)
+![Screenshot5](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/ee6cca69-0c13-451b-bb64-ddfbb4f5a588)
 
 
 Now, back on the ***Active Directory Users and Computers*** window, right-click the group we just created, ***Folder Redirect***, and select ***Properties***
-![Screenshot6](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/8c3ec0a6-d362-498b-b377-8c0d9d463c3f)
+![Screenshot6](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/42a4232e-b6ec-43b9-a7cf-e1ca0e38fd35)
 
 
 From the ***Folder Redirect Properties*** dialogue box, select the ***Members*** tab and click ***Add***
-![Screenshot7](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/a4e87993-daf7-4f7c-b84e-e6174ed873cd)
+![Screenshot7](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/9ed81855-adc4-41c2-b184-6e2e64886c67)
 
 
 In the ***Select Users, Contacts, Computers, Service Accounts, or Groups*** dialogue box, type "testuser" in the ***Enter the object names to select*** field and click ***Check Names*** and click ***OK***
 > The user's username will populate once you click the ***Check Names*** button
-![Screenshot8](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/3de5519a-d83a-4625-b83e-958762559fba)
+![Screenshot8](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/85daaca3-fddc-46bc-8ffa-bf7876fccbf9)
 
 
 The user ***testuser*** is now added as a member of the ***Folder Redirect*** group
 
 Click ***OK***
-![Screenshot9](https://github.com/Brandon-Baker11/Configuring-an-Active-Directory-logon-script/assets/140644499/e8492b10-beb3-4632-bdad-da6619c6dd71)
+![Screenshot9](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/47780a89-23b7-4004-93b2-e6a36ffad4d9)
 
 
 Next, we will be applying permissions and rules for the ***Folder Redirect*** group. Restore server manager and go to ***Tools*** in the top right-hand corner and select ***Group Policy Management***
