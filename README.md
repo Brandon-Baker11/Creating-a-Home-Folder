@@ -15,7 +15,7 @@ This tutorial will walk you through the steps of creating a Home Folder using Ac
 ## Configuration Steps
 In this lab, we will walk through the process of creating a home folder for a user. We will:
 - Create a user
-- Create a security group for the folder redirection
+- Create a Group Policy Object for the folder redirection
 - Apply rules and permissions to that security group
 - Create a folder that will be shared on the network
 - Redirect the user's data location to the network share drive
