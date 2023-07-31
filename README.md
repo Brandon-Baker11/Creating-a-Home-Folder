@@ -3,20 +3,22 @@
 # Creating-a-Home-Folder (OracleVM VirtualBox)
 This tutorial will walk you through the steps of creating a Home Folder using Active Directory within a VirtualBox VM environment
 
-##Environments and Technologies Used
--OracvleVM Virtual Box
--Active Directory Domain Services
--Group Policy Management
+## Environments and Technologies Used
+- OracvleVM Virtual Box
+- Active Directory Domain Services
+- Group Policy Management
 
-##Operating Systems Used
--Windows Server 2019
--Windows 10 (22H2)
+## Operating Systems Used
+- Windows Server 2019
+- Windows 10 (22H2)
 
 ## Configuration Steps
-In this lab, we will walk through the process of creating a home folder for a user. We will create a user, create a folder that will be shared on the network,
--Create a user
--Create a folder that will be shared on the network
--Redirect the location that the user's data will be saved to
+In this lab, we will walk through the process of creating a home folder for a user. We will:
+- Create a user
+- Create a security group for the folder redirection
+- Apply rules and permissions to that security group
+- Create a folder that will be shared on the network
+- Redirect the user's data location to the network share drive
 
 This method of storing data centralizes the management of a user's files by storing them on a server instead of on their local machine. So in case they accidentally delete a file or can no longer access it, a system administrator can backup their lost data. And if the user uses a laptop that is often taken home and is not connected to the network, you can apply certain settings that allow them to make changes to their files offline and update to the server when it is connected to the network.
 
@@ -121,7 +123,20 @@ Click ***Next Setting***
 
 In the ***Redirect folders on primary computers only*** window select ***Disabled*** 
 
-Click ***OK*** and close the ***Group Policy Management Editor*** window
+Click ***OK***
+
+
+Now on the ***Group Policy Management Editor*** under ***User Configuration*** expand the nodes ***Policies***, ***Windows Settings***, and click ***Folder Redirection***. We will select the ***Documents*** folder to be redirected to the home folder. Right-click the ***Documents*** folder and select ***Properties***
+![Screenshot030](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/d3917c7a-6347-4db2-af5c-55e917b37c2e)
+
+
+In the ***Documents Properties*** dialogue box select ***Basic -  Redirect everyone's folder to the same location*** setting option and under ***Root Path*** type ***\\\yourserver\home folder testuser***
+
+Click ***OK***
+
+
+Click ***Yes*** on the ***Warning*** pop-up
+![Screenshot932](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/cea8dcf3-6391-4271-9d34-39e0ebb52da0)
 
 
 Now back on the ***Group Policy Management*** window, select ***Folder Redirection*** and in the ***Folder Redirection*** pane click ***Add***
@@ -173,7 +188,7 @@ Click ***OK*** and then click ***OK*** again on the ***Advance Sharing*** dialog
 ![Screenshot24](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/3eadf858-a9a3-49a8-a37a-913babac6fc3)
 
 
-Now notice in the ***Home FOlder testuser Properties*** window the folder is now shared. Highlight the network path, right click it and select ***Copy***
+Now notice in the ***Home Folder testuser Properties*** window the folder is now shared. Highlight the network path, right click it and select ***Copy***
 
 CLose the ***Home Folder testuser Properties*** window
 ![Screenshot25](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/5ec5f4a8-dfc0-4171-a471-cbd92a08caeb)
@@ -192,6 +207,85 @@ In the ***Profile*** tab click the ***Connect*** option under the ***Home folder
 
 Click ***OK*** and click ***OK*** for the ***Active Directory Domain Services*** pop-up as well
 ![Screenshot29](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/64a8ac5a-51e0-4ac4-93fd-4cf2a97b4b07)
+
+<!---
+Now we will restore the ***Server Manager*** from the taskbar click ***Tools*** and select ***Group Policy Management***
+![Screenshot030](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/753b2a49-3026-4fa1-be32-14a385fa802d)
+--->
+
+Now we are going to perform a gpupdate on that users machine, but before that we are going to check the location of ***testuser's*** document folder. Log in to your client machine as ***testuser*** and open up the ***File Explorer*** right-click ***Documents*** and select ***Properties***
+![Screenshot933](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/475566a6-2eb1-447e-8808-2ae4d0b95022)
+
+
+In the ***Documents Properties*** dialogue box click ***Location*** and notice that the location of the folder is in the user's account
+![Screenshot944](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/69622187-0ec7-4b01-9fe2-f423ac826c69)
+
+
+Right-click the Windows ***Start*** charm and open ***Windows PowerShell***
+![Screenshot935](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/1436cf5a-590b-47c0-af00-e086761c6b18)
+
+
+In the ***Windows PowerShell*** window type the command ***gpupdate /force*** to update all group policy changes that have been made
+
+Press ***Enter***
+![Screenshot936](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/a874383e-d31f-4fbd-a825-1f978dd22875)
+
+
+For the warning that is displayed in Windows PowerShell after running the gpupdate type ***Y***. This warning is basically stating that the user must be logged out before certain policies can be applied.
+![Screenshot937](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/6ed30b75-a4c3-4226-ba53-d6360e135e33)
+
+
+Once logged back in as testuser we are will check the location of the ***Documents*** folder by opening ***File Explorer*** from the taskbar right-clicking the ***Documents*** folder and selecting ***Properties***
+![Screenshot938](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/026d793b-9b3c-4e6e-9365-218d879ae807)
+
+
+In the ***Documents Properties*** dialogue box click ***Location*** and now you can see that the folder's location has changed to ***\\\yourserver\home folder testuser\Documents***
+![Screenshot939](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/b4d88a2a-63a3-40a3-aed0-9b85d3e4f3df)
+
+
+
+
+
+
+
+<!---
+In the ***Settings-About*** scroll down and select ***Advanced system settings***
+![Screenshot31](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/0cfabeb8-bb54-4747-a2da-dc8470196d68)
+
+
+In the ***System Properties*** dialogue box select the ***Remote*** tab and click ***Select Users***
+![Screenshot32](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/0db9eb93-a435-49fd-93d7-43e7043669ba)
+
+
+Click ***Add*** on the ***Remote Desktop Users*** tab and type ***testuser*** in the ***Enter Object Name to Select*** field and click ***Check Names***
+
+Click ***OK*** on the ***Select Users or Groups***, ***Remote Desktop Users***, and ***System Properties*** windows
+![Screenshot33](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/a69cb9a4-fffa-468e-9856-1c31d9d78126)
+
+
+Right-click on the Windows ***Start*** charm and select ***Sign-out***
+![Screenshot34](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/b34a7723-2da8-4b0c-8d8d-d463d03584eb)
+
+
+On the sign-in screen select ***Other user*** in the bottom left and use the username ***testuser*** and the password you assigned to the account
+![Screenshot35](https://github.com/Brandon-Baker11/Creating-a-Home-Folder/assets/140644499/4fe5414d-7652-4848-ac23-8636ac7c50cc)
+--->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
